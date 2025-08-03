@@ -1,3 +1,5 @@
+\newpage
+
 \section{Tinjauan Pustaka}
 
 \subsection{EDA (Exploratory Data Analysis)}
@@ -91,6 +93,50 @@ Matplotlib dan Seaborn adalah pustaka visualisasi data yang populer di Python. M
 % Buat tinjauan pustaka untuk pandas gunakan refrensi yang relevan
 Pandas adalah pustaka Python yang menyediakan struktur data dan fungsi untuk manipulasi dan analisis data. Pustaka ini menawarkan DataFrame, yang merupakan struktur data tabular yang memungkinkan pengguna untuk dengan mudah mengakses, memanipulasi, dan menganalisis data. Pandas sangat berguna dalam proses EDA (Exploratory Data Analysis) karena menyediakan berbagai fungsi untuk membersihkan, mengolah, dan menganalisis data secara efisien.
 
+\subsection{Transform log1p}
+% Buat tinjauan pustaka untuk transform log1p gunakan refrensi yang relevan
+Transformasi log1p adalah teknik yang digunakan untuk mengatasi masalah distribusi data yang tidak normal, terutama ketika data memiliki nilai nol atau sangat kecil. Fungsi log1p menghitung logaritma dari (1 + x), yang memungkinkan transformasi data positif dan nol tanpa menghasilkan nilai tak terdefinisi. Transformasi ini sering digunakan dalam analisis regresi untuk meningkatkan normalitas residual dan mengurangi pengaruh outlier.
 
+%rumus log1p
+\begin{equation}
+    \text{log1p}(x) = \log(1 + x)
+\end{equation}
 
-\newpage
+Di mana :
+\begin{itemize}
+    \item $x$ adalah nilai input.
+    \item $\log$ adalah fungsi logaritma natural.
+\end{itemize}
+
+\subsection{Transform expm1}
+% Buat tinjauan pustaka untuk expm1 gunakan refrensi yang relevan
+expm1 adalah fungsi yang digunakan untuk menghitung eksponensial dari suatu nilai dikurangi satu, yaitu $e^x - 1$. Fungsi ini berguna dalam konteks transformasi data, terutama ketika bekerja dengan data yang telah ditransformasi menggunakan logaritma. Fungsi expm1 membantu mengembalikan nilai asli dari transformasi logaritma dengan cara yang lebih stabil secara numerik, terutama untuk nilai-nilai kecil.
+\begin{equation}
+    \text{expm1}(x) = e^x - 1
+\end{equation}
+
+Di mana :
+\begin{itemize}
+    \item $x$ adalah nilai input.
+    \item $e$ adalah bilangan Euler (sekitar 2.71828).
+\end{itemize}
+
+\subsection{Hyperparameter Tuning}
+
+% Buat tinjauan pustaka untuk hyperparameter tuning gunakan refrensi yang relevan
+Hyperparameter tuning adalah proses mencari nilai optimal untuk hyperparameter model machine learning yang tidak dipelajari selama pelatihan. Hyperparameter adalah parameter yang ditentukan sebelum pelatihan dimulai, seperti laju pembelajaran, jumlah pohon dalam hutan acak, atau kedalaman pohon keputusan. Proses ini penting karena pemilihan hyperparameter yang tepat dapat secara signifikan mempengaruhi performa model. Teknik umum untuk hyperparameter tuning termasuk grid search, random search, dan Bayesian optimization.
+
+\subsection{StandardScaler}
+% Buat tinjauan pustaka untuk StandardScaler gunakan refrensi yang relevan
+StandardScaler adalah kelas dalam pustaka scikit-learn yang digunakan untuk melakukan normalisasi data dengan mengubah distribusi fitur menjadi distribusi normal standar (mean = 0, standar deviasi = 1). Proses ini penting dalam machine learning karena membantu algoritma belajar lebih efektif dengan memastikan bahwa semua fitur memiliki skala yang sama. StandardScaler menghitung mean dan standar deviasi dari setiap fitur pada data pelatihan dan menerapkannya pada data pelatihan dan pengujian.
+\begin{equation}
+    z = \frac{x - \mu}{\sigma}
+\end{equation}
+Di mana:
+\begin{itemize}
+    \item $z$ adalah nilai yang dinormalisasi.
+    \item $x$ adalah nilai asli.
+    \item $\mu$ adalah mean dari fitur.
+    \item $\sigma$ adalah standar deviasi dari fitur.
+\end{itemize}
+

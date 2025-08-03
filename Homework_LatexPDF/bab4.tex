@@ -1,9 +1,190 @@
-\section{Summary dan Appendix}
+\newpage
+\section{Pengujian dan analisis}
 
-\subsection{Summary}
-Simpulkan secara singkat hasil pengerjaan teman-teman. Jika ada rekomendasi bisnis yang diberikan akan lebih baik (nilai plus).
+Pada bab ini, akan dijelaskan mengenai hasil pengujian dan pembahasan dari penelitian yang telah diuraikan pada metodologi. Selain itu, akan dipaparkan juga mengenai skenario pengujian yang dilakukan untuk mengevaluasi performa sistem secara keseluruhan. Pengujian ini dilakukan dengan tujuan untuk memastikan bahwa sistem yang dirancang mampu berfungsi dengan baik dalam memprediksi jumlah penonton video Youtube berdasarkan metadata yang tersedia.
 
-\subsection{Appendix}
-Tuliskan kontribusi pengerjaan masing-masing anggota tim di bagian ini.
+\subsection{Pengujian Sistem}
+Pengujian sistem dilakukan dengan menggunakan dataset yang telah diolah sebelumnya dan dibagi menjadi data latih dan data uji. Data latih digunakan untuk melatih model regresi linier, sedangkan data uji digunakan untuk menguji performa model yang telah dilatih. Adapun skenario pengujian yang dilakukan adalah sebagai berikut:
 
-Tuliskan juga kesulitan-kesulitan dalam pengerjaan tugas ini di bagian ini (jika ada).
+\begin{enumerate}
+    \item \textbf{Pengujian Model Regresi Linier:} Model regresi linier dibangun menggunakan data latih, dan kemudian diuji menggunakan data uji. Hasil prediksi dibandingkan dengan nilai aktual untuk menghitung metrik evaluasi seperti Mean Absolute Error (MAE), Mean Squared Error (MSE), dan R-squared.
+    
+    \item \textbf{Visualisasi Hasil:} Hasil prediksi dibandingkan dengan nilai aktual divisualisasikan dalam bentuk grafik untuk memberikan gambaran yang jelas tentang performa model.
+    
+    \item \textbf{Perbandingan dengan Model Lain:} Jika ada, model lain yang lebih kompleks seperti Random Forest atau Gradient Boosting juga diuji untuk membandingkan performa dengan model regresi linier.
+\end{enumerate}
+
+\subsection{Pengujian Model Regresi Linier}
+Pengujian model regresi linier dilakukan dengan menggunakan data uji yang telah disiapkan. Model ini dilatih menggunakan data latih dan kemudian diuji untuk melihat seberapa baik model tersebut dalam memprediksi jumlah penonton video Youtube berdasarkan metadata yang tersedia.
+
+Agar memudahkan memahami pengujian ini berikut dilampirkan rumus regresi yang sesuai dengan scikit-learn 
+
+\begin{equation}
+    y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + ... + \beta_n x_n + \epsilon
+\end{equation}
+
+%jelaskan masing masing variabel
+Di mana:
+\begin{itemize}
+    \item $y$ adalah variabel dependen (target).
+    \item $\beta_0$ adalah intercept (nilai awal ketika semua variabel independen bernilai nol).
+    \item $\beta_1, \beta_2, ..., \beta_n$ adalah koefisien regresi yang menunjukkan pengaruh masing-masing variabel independen terhadap variabel dependen.
+    \item $x_1, x_2, ..., x_n$ adalah variabel independen (fitur).
+    \item $\epsilon$ adalah error term yang mencakup variasi yang tidak dijelaskan oleh model.
+\end{itemize}
+
+Model regresi linier ini digunakan untuk memprediksi jumlah penonton video berdasarkan fitur-fitur yang tersedia dalam metadata, seperti judul, deskripsi, tag, dan lainnya. Setelah model dilatih, dilakukan evaluasi menggunakan data uji untuk mengukur seberapa baik model tersebut dalam memprediksi jumlah penonton.
+
+Setelah dilakukan pengujian, berikut adalah hasil evaluasi model regresi linier dengan menggunakan metrik RMSE (Root Mean Squared Error) dan R-squared namun masih berskala log1p:
+
+\begin{itemize}
+    \item \textbf{RMSE (Root Mean Squared Error):} 1.1960863333284286
+    \item \textbf{R-squared:} 0.19453093508280828
+\end{itemize}
+
+Hasil evaluasi ini menunjukkan bahwa model regresi linier memiliki performa yang cukup baik dalam memprediksi jumlah penonton video Youtube berdasarkan metadata yang tersedia. Nilai R-squared yang mendekati 0.2 menunjukkan bahwa model ini mampu menjelaskan sekitar 20\% variasi dalam jumlah penonton, meskipun masih ada ruang untuk perbaikan.
+
+Namun hasil berbeda ditunjukan setelah melakukan transformasi kembali ke skala asli dengan menggunakan fungsi `np.expm1` pada hasil prediksi. Berikut adalah hasil evaluasi model regresi linier setelah transformasi kembali ke skala asli:
+\begin{itemize}
+    \item \textbf{RMSE (Root Mean Squared Error) (original):} 3091719.7102543344
+    \item \textbf{R-squared (original):} -0.0034031502640745614
+\end{itemize}
+
+Hasil evaluasi ini menunjukkan bahwa model regresi linier memiliki performa yang kurang baik dalam memprediksi jumlah penonton video Youtube setelah transformasi kembali ke skala asli. Nilai R-squared yang negatif menunjukkan bahwa model ini tidak mampu menjelaskan variasi dalam jumlah penonton, bahkan lebih buruk daripada model yang hanya menggunakan rata-rata.
+
+\subsubsection{Visualisasi Hasil}
+
+\lipsum[1-2]
+
+\subsection{Perbandingan dengan Model Lain}
+Adapun beberapa model lain yang akan diuji untuk membandingkan performa dengan model regresi linier, antara lain:
+\begin{itemize}
+    \item \textbf{Ridge Regressor:} Model ini menggunakan regularisasi L2 untuk mengurangi overfitting.
+    \item \textbf{Lasso Regressor:} Model ini menggunakan regularisasi L1 untuk mengurangi overfitting. 
+    \item \textbf{Random Forest Regressor:} Model ini menggunakan algoritma Random Forest untuk melakukan regresi.
+    \item \textbf{Gradient Boosting Regressor:} Model ini menggunakan algoritma Gradient Boosting untuk melakukan regresi.
+\end{itemize}
+
+\subsubsection{Pengujian Model Ridge Regressor}
+Pengujian model Ridge Regressor dilakukan dengan menggunakan data latih yang telah disiapkan. Model ini dilatih menggunakan data latih dan kemudian diuji untuk melihat seberapa baik model tersebut dalam memprediksi jumlah penonton video Youtube berdasarkan metadata yang tersedia.
+
+Adapun rumus regresi Ridge yang sesuai dengan scikit-learn adalah sebagai berikut:
+\begin{equation}
+    y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + ... + \beta_n x_n + \lambda \sum_{i=1}^{n} \beta_i^2 + \epsilon
+\end{equation}
+%jelaskan masing masing variabel
+Di mana:
+\begin{itemize}
+    \item $y$ adalah variabel dependen (target).
+    \item $\beta_0$ adalah intercept (nilai awal ketika semua variabel independen bernilai nol).
+    \item $\beta_1, \beta_2, ..., \beta_n$ adalah koefisien regresi yang menunjukkan pengaruh masing-masing variabel independen terhadap variabel dependen.
+    \item $x_1, x_2, ..., x_n$ adalah variabel independen (fitur).
+    \item $\lambda$ adalah parameter regularisasi yang mengontrol kekuatan regularisasi.
+    \item $\epsilon$ adalah error term yang mencakup variasi yang tidak dijelaskan oleh model.
+    \item $\sum_{i=1}^{n} \beta_i^2$ adalah penalti L2 yang ditambahkan untuk mengurangi overfitting.
+\end{itemize}
+
+Model ridge dan model regresi linier memiliki kesamaan dalam hal struktur dasar, namun model ridge menambahkan penalti L2 untuk mengurangi overfitting. Setelah model dilatih, dilakukan evaluasi menggunakan data uji untuk mengukur seberapa baik model tersebut dalam memprediksi jumlah penonton.
+
+Setelah dilakukan pengujian, berikut adalah hasil evaluasi model Ridge Regressor dengan menggunakan metrik RMSE (Root Mean Squared Error) dan R-squared namun masih berskala log1p:
+
+\begin{itemize}
+    \item \textbf{RMSE (Root Mean Squared Error):} 1.195796
+    \item \textbf{R-squared:} 0.194923
+\end{itemize}
+
+Hasil evaluasi ini menunjukkan bahwa model Ridge Regressor memiliki performa yang sedikit lebih baik dibandingkan dengan model regresi linier, dengan nilai R-squared yang sedikit lebih tinggi. Namun, masih ada ruang untuk perbaikan.
+
+Setelah melakukan transformasi kembali ke skala asli dengan menggunakan fungsi `np.expm1` pada hasil prediksi, berikut adalah hasil evaluasi model Ridge Regressor setelah transformasi kembali ke skala asli:
+
+\begin{itemize}
+    \item \textbf{RMSE (Root Mean Squared Error) (original):} 3.091978
+    \item \textbf{R-squared (original):} -0.003571
+\end{itemize}
+
+\subsection{Visualisasi Hasil Ridge Regressor}
+
+\lipsum[3-4]
+
+\subsubsection{Pengujian Model Lasso Regressor}
+Pengujian model Lasso Regressor dilakukan dengan menggunakan data latih yang telah disiapkan. Model ini dilatih menggunakan data latih dan kemudian diuji untuk melihat seberapa baik model tersebut dalam memprediksi jumlah penonton video Youtube berdasarkan metadata yang tersedia.
+
+Adapun rumus regresi Lasso yang sesuai dengan scikit-learn adalah sebagai berikut:
+\begin{equation}
+    y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + ... + \beta_n x_n + \lambda \sum_{i=1}^{n} |\beta_i| + \epsilon
+\end{equation}
+
+%jelaskan masing masing variabel
+Di mana:
+\begin{itemize}
+    \item $y$ adalah variabel dependen (target).
+    \item $\beta_0$ adalah intercept (nilai awal ketika semua variabel independen bernilai nol).
+    \item $\beta_1, \beta_2, ..., \beta_n$ adalah koefisien regresi yang menunjukkan pengaruh masing-masing variabel independen terhadap variabel dependen.
+    \item $x_1, x_2, ..., x_n$ adalah variabel independen (fitur).
+    \item $\lambda$ adalah parameter regularisasi yang mengontrol kekuatan regularisasi.
+    \item $\epsilon$ adalah error term yang mencakup variasi yang tidak dijelaskan oleh model.
+    \item $\sum_{i=1}^{n} |\beta_i|$ adalah penalti L1 yang ditambahkan untuk mengurangi overfitting dan melakukan feature selection.
+\end{itemize}
+
+Model Lasso Regressor dan model regresi linier memiliki kesamaan dalam hal struktur dasar, namun model Lasso Regressor menambahkan penalti L1 untuk mengurangi overfitting dan melakukan feature selection. Setelah model dilatih, dilakukan evaluasi menggunakan data uji untuk mengukur seberapa baik model tersebut dalam memprediksi jumlah penonton.
+
+Setelah dilakukan pengujian, berikut adalah hasil evaluasi model Lasso Regressor dengan menggunakan metrik RMSE (Root Mean Squared Error) dan R-squared namun masih berskala log1p:
+
+\begin{itemize}
+    \item \textbf{RMSE (Root Mean Squared Error):} 1.311019
+    \item \textbf{R-squared:} 0.032298
+\end{itemize}
+
+Hasil evaluasi ini menunjukkan bahwa model Lasso Regressor memiliki performa yang sedikit lebih baik dibandingkan dengan model regresi linier, dengan nilai R-squared yang sedikit lebih tinggi. Namun, masih ada ruang untuk perbaikan.
+
+Setelah melakukan transformasi kembali ke skala asli dengan menggunakan fungsi `np.expm1` pada hasil prediksi, berikut adalah hasil evaluasi model Lasso Regressor setelah transformasi kembali ke skala asli:
+\begin{itemize}
+    \item \textbf{RMSE (Root Mean Squared Error) (original):} 3.126240e+06
+    \item \textbf{R-squared (original):} -0.025935
+\end{itemize}
+
+\subsection{Visualisasi Hasil Lasso Regressor}
+\lipsum[5-6]
+
+\subsubsection{Pengujian Model Random Forest Regressor}
+Pengujian model Random Forest Regressor dilakukan dengan menggunakan data latih yang telah disiapkan. Model ini dilatih menggunakan data latih dan kemudian diuji untuk melihat seberapa baik model tersebut dalam memprediksi jumlah penonton video Youtube berdasarkan metadata yang tersedia.
+Adapun rumus regresi Random Forest yang sesuai dengan scikit-learn adalah sebagai berikut:
+
+\begin{equation}
+    y = \frac{1}{N} \sum_{i=1}^{N} f_i(x)
+\end{equation}
+%jelaskan masing masing variabel
+Di mana:
+\begin{itemize}
+    \item $y$ adalah variabel dependen (target).
+    \item $N$ adalah jumlah pohon dalam hutan acak (random forest).
+    \item $f_i(x)$ adalah prediksi dari pohon ke-$i$ untuk input $x$.
+    \item $\sum_{i=1}^{N}$ adalah penjumlahan dari prediksi semua pohon dalam hutan acak.
+    \item $\frac{1}{N}$ adalah rata-rata dari prediksi semua pohon dalam hutan acak.
+    \item $x$ adalah variabel independen (fitur).
+    \item $\epsilon$ adalah error term yang mencakup variasi yang tidak dijelaskan oleh model.
+\end{itemize}
+
+Model Random Forest Regressor adalah model ensemble yang menggabungkan prediksi dari beberapa pohon keputusan (decision trees) untuk meningkatkan akurasi dan mengurangi overfitting. Setelah model dilatih, dilakukan evaluasi menggunakan data uji untuk mengukur seberapa baik model tersebut dalam memprediksi jumlah penonton.
+
+Setelah dilakukan pengujian, berikut adalah hasil evaluasi model Random Forest Regressor dengan menggunakan metrik RMSE (Root Mean Squared Error) dan R-squared namun masih berskala log1p:
+
+\begin{itemize}
+    \item \textbf{RMSE (Root Mean Squared Error):} 1.195796
+    \item \textbf{R-squared:} 0.194923
+\end{itemize}
+Hasil evaluasi ini menunjukkan bahwa model Random Forest Regressor memiliki performa yang sedikit lebih baik dibandingkan dengan model regresi linier, dengan nilai R-squared yang sedikit lebih tinggi. Namun, masih ada ruang untuk perbaikan.
+
+Setelah melakukan transformasi kembali ke skala asli dengan menggunakan fungsi `np.expm1` pada hasil prediksi, berikut adalah hasil evaluasi model Random Forest Regressor setelah transformasi kembali ke skala asli:
+
+\begin{itemize}
+    \item \textbf{RMSE (Root Mean Squared Error) (original):} 3054773.8808745374
+    \item \textbf{R-squared (original):} 0.020434754712886805
+\end{itemize}
+
+Menurut hasil evaluasi ini, model Random Forest Regressor memiliki performa yang terbaik diantara model-model yang telah diuji, dengan nilai R-squared yang paling tinggi. Namun, masih ada ruang untuk perbaikan, terutama dalam hal interpretabilitas model.
+
+\subsection{Visualisasi Hasil Random Forest Regressor}
+\lipsum[7-8]
+
+
