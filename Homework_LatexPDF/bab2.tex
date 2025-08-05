@@ -32,6 +32,58 @@ Di mana:
 
 Dengan kemajuan teknologi dan ketersediaan pustaka machine learning yang kuat seperti scikit-learn, TensorFlow, dan PyTorch, penerapan regresi linier dalam model machine learning menjadi lebih mudah dan efisien. Pustaka-pustaka ini menyediakan fungsi-fungsi yang memungkinkan pengguna untuk dengan cepat membangun, melatih, dan mengevaluasi model regresi linier tanpa harus mengimplementasikan algoritma dari awal.
 
+\subsection{Ridge Regression}
+% Buat tinjauan pustaka untuk ridge regression gunakan refrensi yang relevan
+Ridge regression adalah teknik regresi linier yang digunakan untuk mengatasi masalah multikolinearitas, yaitu ketika dua atau lebih variabel independen sangat berkorelasi satu sama lain. Ridge regression menambahkan penalti pada ukuran koefisien regresi untuk mengurangi kompleksitas model dan mencegah overfitting. Penalti ini dihitung sebagai kuadrat dari norma L2 dari koefisien regresi, sehingga menghasilkan model yang lebih stabil dan generalisasi yang lebih baik pada data baru.
+
+\begin{equation}
+    \text{Ridge Loss} = \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 + \lambda \sum_{j=1}^{p} \beta_j^2
+\end{equation}
+Di mana:
+\begin{itemize}
+    \item $n$ adalah jumlah data.
+    \item $y_i$ adalah nilai aktual.
+    \item $\hat{y}_i$ adalah nilai yang diprediksi oleh model.
+    \item $\lambda$ adalah parameter regularisasi yang mengontrol kekuatan penalti.
+    \item $p$ adalah jumlah variabel independen.
+    \item $\beta_j$ adalah koefisien regresi untuk variabel independen ke-$j$.
+    \item $\sum_{j=1}^{p} \beta_j^2$ adalah penalti L2 yang ditambahkan ke fungsi loss untuk mengurangi kompleksitas model.
+\end{itemize}
+
+\subsection{Lasso Regression}
+% Buat tinjauan pustaka untuk lasso regression gunakan refrensi yang relevan
+Lasso Regression adalah teknik regresi linier yang juga digunakan untuk mengatasi masalah multikolinearitas, tetapi dengan pendekatan yang berbeda dibandingkan dengan Ridge Regression. Lasso Regression menambahkan penalti pada ukuran koefisien regresi menggunakan norma L1, yang dapat menghasilkan koefisien regresi nol untuk beberapa variabel independen. Hal ini memungkinkan Lasso Regression melakukan seleksi fitur secara otomatis, sehingga menghasilkan model yang lebih sederhana dan interpretatif.
+\begin{equation}
+    \text{Lasso Loss} = \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 + \lambda \sum_{j=1}^{p} |\beta_j|
+\end{equation}
+Di mana:
+\begin{itemize}
+    \item $n$ adalah jumlah data.
+    \item $y_i$ adalah nilai aktual.
+    \item $\hat{y}_i$ adalah nilai yang diprediksi oleh model.
+    \item $\lambda$ adalah parameter regularisasi yang mengontrol kekuatan penalti.
+    \item $p$ adalah jumlah variabel independen.
+    \item $\beta_j$ adalah koefisien regresi untuk variabel independen ke-$j$.
+    \item $\sum_{j=1}^{p} |\beta_j|$ adalah penalti L1 yang ditambahkan ke fungsi loss untuk mengurangi kompleksitas model dan melakukan seleksi fitur.
+    \item $|\beta_j|$ adalah nilai absolut dari koefisien regresi untuk variabel independen ke-$j$.
+\end{itemize}
+
+\subsection{Random Forest Regression}
+% Buat tinjauan pustaka untuk random forest regression gunakan refrensi yang relevan
+Random Forest Regression adalah metode ensemble learning yang menggabungkan beberapa pohon keputusan untuk meningkatkan akurasi prediksi. Metode ini bekerja dengan membangun sejumlah pohon keputusan pada subset acak dari data pelatihan dan kemudian menggabungkan hasil prediksi dari semua pohon tersebut. Random Forest Regression sangat efektif dalam menangani data dengan banyak fitur dan dapat mengurangi risiko overfitting yang sering terjadi pada pohon keputusan tunggal.
+\begin{equation}
+    \hat{y} = \frac{1}{T} \sum_{t=1}^{T} f_t(x)
+\end{equation}
+Di mana:
+\begin{itemize}
+    \item $\hat{y}$ adalah prediksi akhir dari Random Forest.
+    \item $T$ adalah jumlah pohon dalam hutan acak.
+    \item $f_t(x)$ adalah prediksi dari pohon keputusan ke-$t$ untuk input $x$.
+    \item $\sum_{t=1}^{T} f_t(x)$ adalah jumlah prediksi dari semua pohon keputusan.
+    \item $\frac{1}{T}$ adalah rata-rata dari prediksi semua pohon keputusan, yang memberikan hasil akhir dari Random Forest Regression.
+    \item $T$ adalah jumlah pohon keputusan yang digunakan dalam Random Forest, yang biasanya ditentukan oleh pengguna sebagai hyperparameter.
+\end{itemize}
+
 
 \subsection{Metadata Youtube}
 % Buat tinjauan pustaka untuk metadata Youtube gunakan refrensi yang relevan
